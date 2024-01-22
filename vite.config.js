@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,vue,png,svg,woff,woff2,scss}'],
+        globPatterns: ['**/*.{js,css,html,vue,png,svg,woff,woff2,scss,ico,gif}'],
       },
       manifest: {
         name: 'Movary',
