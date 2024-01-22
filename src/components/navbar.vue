@@ -3,22 +3,8 @@
     <div class="container">
       <a class="navbar-brand" href="/">Movary</a>
       <div class="btn-group">
-        <button
-          type="button"
-          class="btn btn-outline-light"
-          data-bs-toggle="modal"
-          data-bs-target="#logPlayModal"
-          style="border-color: #9d9d9d"
-        >
-          Add movie
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-light"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          style="border-color: #9d9d9d"
-        >
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#logPlayModal" style="border-color: #9d9d9d">Add movie</button>
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #9d9d9d">
           <i class="bi bi-three-dots-vertical"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -33,15 +19,8 @@
             <hr class="dropdown-divider" />
           </li>
           <div class="form-check form-switch" style="margin-left: 1rem">
-            <input
-              id="darkModeInput"
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-            />
-            <label class="form-check-label" for="darkModeInput"
-              >Dark Mode</label
-            >
+            <input id="darkModeInput" class="form-check-input" type="checkbox" role="switch" />
+            <label class="form-check-label" for="darkModeInput">Dark Mode</label>
           </div>
         </ul>
       </div>
