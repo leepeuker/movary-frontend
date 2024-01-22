@@ -32,3 +32,12 @@ automated play tracking for Plex, Jellyfin or Emby and much [more](#features).
 ## About
 
 Movary will be split up into two parts: the backend and the frontend. This repository is meant to be the frontend of Movary and has to be connected to a Movary backend in order to work.
+
+## Development
+
+1. To start development, first clone this repo to your device.
+2. Ensure you have installed both Node.JS and Node Package Manager (NPM)
+3. In the project directory, run `npm install` to install all the dependencies
+4. If you're using VS Code (or Codium) install the recommended extensions. (And ensure the Firefox debugger is at least version `2.9.10`)
+5. To start the Vite server, run `npm run serve` and visit `http://localhost:5173` to view the frontend.
+6. Additionally, if you want to use the Firefox debugger (or some other browser), you can use the pre-defined debugging set ups and in VS Code you can press `F5` to start a debugging session.
