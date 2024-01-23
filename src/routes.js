@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Login from './views/login.vue';
 import Dashboard from './views/dashboard.vue';
 
@@ -14,7 +14,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
@@ -24,8 +24,9 @@ const isAuthenticated = false;
 router.beforeEach((to, _from, next) => {
   if (isAuthenticated === false && to.name !== 'login') {
     next({ name: 'login' });
+  } else {
+    next();
   }
-  next();
 });
 
 export default router;
