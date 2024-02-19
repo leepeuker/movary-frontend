@@ -16,7 +16,7 @@ const globalStore = defineStore('global', {
     applicationName: 'Movary',
     applicationTimezone: null,
     currentUsername: null,
-    currentUserIsAdmin: null,
+    currentUserIsAdmin: false,
     currentUserCountry: null,
     currentUserId: null,
     routeUsername: null,
@@ -60,6 +60,7 @@ async function checkAuthenticationStatus() {
     const data = await request.data;
     return data;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
   }
   return {

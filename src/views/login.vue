@@ -15,7 +15,7 @@ async function submitCredentials() {
         window.location.replace(response.request.responseURL);
     }).catch((error) => {
         if(error.response){
-            if(error.response.data.error === 'NoVerificationCode') {
+            if(error.response.data.error === 'MissingTotpCode') {
             document.getElementById('LoginForm').classList.add('d-none');
             document.getElementById('TotpWrapper').classList.remove('d-none');
             } else if(error.response.data.error === 'InvalidTotpCode') {
@@ -57,7 +57,7 @@ async function submitCredentials() {
                     autocomplete="off"
                     style="margin-bottom: .7rem;margin-top: .7rem"
                     required>
-                <button class="w-100 btn btn-lg btn-primary mb-3" style="margin-bottom: .7rem!important;" @click="submitCredentials">Continue</button>
+                <button class="w-100 btn btn-lg btn-primary mb-3"  type="button" style="margin-bottom: .7rem!important;" @click="submitCredentials">Continue</button>
             </form>
             <div id="totpErrors"></div>
             <a href="/">Back</a>

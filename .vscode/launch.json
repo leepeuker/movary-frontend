@@ -5,23 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch localhost",
-      "type": "firefox",
-      "request": "launch",
-      "reAttach": true,
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}"
+        "name": "Launch localhost",
+        "type": "firefox",
+        "request": "launch",
+        "reAttach": true,
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}"
     },
     {
-      "name": "Attach",
-      "type": "firefox",
-      "request": "attach",
-      "pathMappings": [
-        {
-          "url": "http://localhost:5173/src",
-          "path": "${workspaceFolder}/src"
-        }
-      ]
+        "name": "Attach",
+        "type": "firefox",
+        "request": "attach",
+        "pathMappings": [
+
+        ]
     }
-  ]
+]
 }

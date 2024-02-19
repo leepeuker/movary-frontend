@@ -1,3 +1,10 @@
+<script setup>
+import { globalStore } from '../utilities';
+
+const username = globalStore.currentUsername;
+const authenticated = username !== null;
+const inSettings = window.location.pathname.startsWith('/settings');
+</script>
 <template>
 	<nav class="navbar navbar-dark bg-dark">
 		<div class="container">
@@ -8,16 +15,22 @@
 					<i class="bi bi-three-dots-vertical"></i>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-end">
-					<li>Dashboard</li>
-					<li>History</li>
-					<li>Watchlist</li>
-					<li>All Movies</li>
-					<li>Top Actors</li>
-					<li>Top Directors</li>
+					<li><router-link class="dropdown-item" :to="{ name: 'dashboard', params: { username: username } }">Dashboard</router-link></li>
+					<li><router-link class="dropdown-item" :to="{ name: 'history', params: { username: username } }">History</router-link></li>
+					<li><router-link class="dropdown-item" :to="{ name: 'watchlist', params: { username: username } }">Watchlist</router-link></li>
+					<li><router-link class="dropdown-item" :to="{ name: 'movies', params: { username: username } }">All Movies</router-link></li>
+					<li><router-link class="dropdown-item" :to="{ name: 'topActors', params: { username: username } }">Top Actors</router-link></li>
+					<li><router-link class="dropdown-item" :to="{ name: 'topDirectors', params: { username: username } }">Top Directors</router-link></li>
 					<li><hr class="dropdown-divider" /></li>
 					<li>
 						<hr class="dropdown-divider" />
 					</li>
+                    <li v-if="authenticated"><a class="dropdown-item" :class="{ active: inSettings }" href="/settings/account/general">Settings</a></li>
+                    <li v-if="authenticated"><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li v-else><a class="dropdown-item" href="/login">Login</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
 					<div class="form-check form-switch" style="margin-left: 1rem">
 						<input id="darkModeInput" class="form-check-input" type="checkbox" role="switch" />
 						<label class="form-check-label" for="darkModeInput">Dark Mode</label>
@@ -26,5 +39,4 @@
 			</div>
     	</div>
 	</nav>
-<hr id="darkModeNavHr" style="margin: 0" />
 </template>

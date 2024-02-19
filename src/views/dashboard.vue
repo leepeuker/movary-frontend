@@ -1,4 +1,9 @@
+<script setup>
+    import navbar from "../components/navbar.vue";
+</script>
 <template>
-    <h1>Dashboard Movary</h1>
-    <h3>Username: {{ $route.params.username }}</h3>
+    <main role="main" class="container">
+        <navbar></navbar>
+        <h1>{{ $route.params.username }}</h1>
+    </main>
 </template>
