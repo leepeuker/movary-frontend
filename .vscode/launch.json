@@ -15,7 +15,13 @@
     {
       "name": "Attach",
       "type": "firefox",
-      "request": "attach"
+      "request": "attach",
+      "pathMappings": [
+        {
+          "url": "http://localhost:5173/src",
+          "path": "${workspaceFolder}/src"
+        }
+      ]
     }
   ]
 }
