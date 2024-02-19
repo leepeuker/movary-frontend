@@ -26,6 +26,7 @@ async function submitCredentials() {
         }
     });
 }
+document.getElementById('app').style.minHeight = '';
 </script>
 <template>
     <main role="main" class="form-signin w-100 m-auto text-center">

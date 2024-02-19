@@ -7,14 +7,14 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig(({ command, mode }) => {
     // Load env file based on `mode` in the current working directory.
     // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
-    const env = loadEnv(mode, process.cwd(), '')
+    const env = loadEnv(mode, process.cwd(), '');
     return {
         plugins: [
             vue(),
             VitePWA({
                 registerType: 'autoUpdate',
                 workbox: {
-                    globPatterns: ['**/*.{js,css,html,vue,png,svg,woff,woff2,scss,ico,gif}'],
+                    globPatterns: ['**/*.{js,css,html,vue,png,svg,woff,woff2,scss,ico,gif}']
                 },
                 manifest: {
                     name: 'Movary',
@@ -25,22 +25,22 @@ export default defineConfig(({ command, mode }) => {
                         {
                             src: '/images/movary-logo-192x192.png',
                             sizes: '192x192',
-                            type: 'image/png',
+                            type: 'image/png'
                         },
                         {
                             src: '/images/movary-logo-512x512.png',
                             sizes: '512x512',
-                            type: 'image/png',
-                        },
-                    ],
-                },
-            }),
+                            type: 'image/png'
+                        }
+                    ]
+                }
+            })
         ],
         resolve: {
             alias: {
                 vue: 'vue/dist/vue.esm-bundler.js',
                 '@': '/src'
-            },
+            }
         },
         base: 'http://'.concat(env.VITE_FRONTEND_HOST),
         server: {
@@ -58,5 +58,5 @@ export default defineConfig(({ command, mode }) => {
                 overlay: true
             }
         }
-    }
+    };
 });

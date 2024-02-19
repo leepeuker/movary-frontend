@@ -1,13 +1,14 @@
 {
-  "singleQuote": true,
-  "overrides": [
-    {
-      "files": ["**/*.css", "**/*.scss", "**/*.html"],
-      "options": {
-        "singleQuote": false
-      }
-    }
-  ],
-  "tabWidth": 4,
-  "printWidth": 200  
+    "singleQuote": true,
+    "overrides": [
+        {
+            "files": ["**/*.css", "**/*.scss", "**/*.html"],
+            "options": {
+                "singleQuote": false
+            }
+        }
+    ],
+    "tabWidth": 4,
+    "printWidth": 200,
+    "trailingComma": "none"
 }
