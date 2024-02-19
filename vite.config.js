@@ -44,7 +44,7 @@ export default defineConfig(({ command, mode }) => {
         },
         base: 'http://'.concat(env.VITE_FRONTEND_HOST),
         server: {
-            host: env.VITE_FRONTEND_HOST,
+            host: env.VITE_FRONTEND_HOST ?? 'localhost',
             port: env.VITE_FRONTEND_PORT ?? 5173,
             proxy: {
                 '/api': {
