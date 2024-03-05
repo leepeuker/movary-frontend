@@ -1,18 +1,19 @@
 <script setup>
-import { inject } from 'vue';
-import { addAlert } from '../utilities';
+import { addAlert, userStore, themeStore } from '@/utilities';
+import axiosInstance from '@/httpClient';
 
-const httpClient = inject('httpClient');
+const user = userStore();
 async function submitCredentials() {
     const urlParams = new URLSearchParams(window.location.search);
-    await httpClient.post('/api/authentication/create-token', {
+    await axiosInstance.post('/api/authentication/token', {
         'email': document.getElementById('email').value,
         'password': document.getElementById('password').value,
         'rememberMe': document.getElementById('rememberMe').checked,
         'totpCode': document.getElementById('totpCode').value ?? '',
         'redirect': urlParams.get('redirect') ?? ''
     }).then((response) => {
-        window.location.replace(response.request.responseURL);
+        user.setNewUser(response.data.user.name, response.data.user.id, response.data.user.isAdmin);
+        this.$router.push({ name: 'dashboard', params: { 'username': response.user.name } });
     }).catch((error) => {
         if(error.response){
             if(error.response.data.error === 'MissingTotpCode') {
@@ -26,22 +27,23 @@ async function submitCredentials() {
         }
     });
 }
+const store = themeStore();
 document.getElementById('app').style.minHeight = '';
 </script>
 <template>
     <main role="main" class="form-signin w-100 m-auto text-center">
         <form id="LoginForm" enctype="multipart/form-data">
-            <h1 id="header" class="text-{{ theme == 'dark' ? 'light' : 'dark' }}" style="margin-bottom: 1rem">Movary</h1>
+            <h1 id="header" :class="[store.isLightTheme ? 'text-dark' : 'text-light']" style="margin-bottom: 1rem">Movary</h1>
             <div class="form-floating">
-              <input id="email" type="email" class="form-control text-{{ theme == 'dark' ? 'light' : 'dark' }}" placeholder="name@example.com" required @keyup.enter="submitCredentials"/>
+              <input id="email" type="email" class="form-control" :class="[store.isLightTheme ? 'text-dark' : 'text-light']" placeholder="name@example.com" required @keyup.enter="submitCredentials"/>
               <label for="email">Email address</label>
             </div>
             <div class="form-floating">
-              <input id="password" type="password" class="form-control text-{{ theme == 'dark' ? 'light' : 'dark' }}" placeholder="Password" required @keyup.enter="submitCredentials"/>
+              <input id="password" type="password" class="form-control" :class="[store.isLightTheme ? 'text-dark' : 'text-light']" placeholder="Password" required @keyup.enter="submitCredentials"/>
               <label for="password">Password</label>
             </div>
             <div class="checkbox mb-3" style="margin-bottom: 0.7rem !important">
-                <label class="text-{{ theme == 'dark' ? 'light' : 'dark' }}"> <input id="rememberMe" type="checkbox" value="true" /> Remember me </label>
+                <label :class="[store.isLightTheme ? 'text-dark' : 'text-light']"> <input id="rememberMe" type="checkbox" value="true" /> Remember me </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary mb-3" type="button" @click="submitCredentials">Sign in</button>
             <div id="loginErrors"></div>
@@ -52,7 +54,8 @@ document.getElementById('app').style.minHeight = '';
                 <input
                     id="totpCode"
                     type="text"
-                    class="form-control form-control-lg text-{{ theme == 'dark' ? 'light' : 'dark' }}"
+                    class="form-control form-control-lg"
+                    :class="[store.isLightTheme ? 'text-light' : 'text-dark']"
                     placeholder="Verification code"
                     maxlength="6"
                     autocomplete="off"

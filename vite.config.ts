@@ -1,9 +1,10 @@
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import vue from '@vitejs/plugin-vue';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
-// eslint-disable-next-line no-unused-vars
+// @typescript-eslint/no-unused-vars
 export default defineConfig(({ command, mode }) => {
     // Load env file based on `mode` in the current working directory.
     // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
@@ -34,12 +35,13 @@ export default defineConfig(({ command, mode }) => {
                         }
                     ]
                 }
-            })
+            }),
+            tsconfigPaths()
         ],
         resolve: {
             alias: {
                 vue: 'vue/dist/vue.esm-bundler.js',
-                '@': '/src'
+                '@': '/src',
             }
         },
         base: 'http://'.concat(env.VITE_FRONTEND_HOST),

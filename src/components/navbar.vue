@@ -1,7 +1,9 @@
 <script setup>
-import { globalStore } from '../utilities';
+import { storeToRefs} from 'pinia';
+import { userStore } from '../utilities';
 
-const username = globalStore.currentUsername;
+const store = userStore();
+const { username } = storeToRefs(store);
 const authenticated = username !== null;
 const inSettings = window.location.pathname.startsWith('/settings');
 </script>

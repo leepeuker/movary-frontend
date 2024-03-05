@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from './views/login.vue';
-import Dashboard from './views/dashboard.vue';
-import NotFound from './views/404.vue';
-import { checkAuthenticationStatus, globalStore } from './utilities';
+import Login from '@/views/login.vue';
+import Dashboard from '@/views/dashboard.vue';
+import NotFound from '@/views/404.vue';
+import { checkAuthenticationStatus, userStore } from '@/utilities';
+import { instanceOfUserInfo, userInfo } from '@/types';
 
 const routes = [
-    { path: '/login', component: Login, name: 'login', alias: '/' },
+    {
+        path: '/login',
+        component: Login,
+        name: 'login',
+        alias: '/'
+    },
     {
         path: '/users/:username([a-zA-Z0-9]+)',
         children: [
@@ -34,24 +40,21 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    const guard = await checkAuthenticationStatus().then((authentication) => {
-        if (authentication.authenticated === false && to.name !== 'login') {
-            if (globalStore.currentUsername !== null) {
-                globalStore.resetUsername();
+    const userData = userStore();
+    let returnRoute: boolean | object = true;
+    await checkAuthenticationStatus().then((authentication: false | userInfo) => {
+        if (authentication === false && to.name !== 'login') {
+            if (userData.getUser.username !== null) {
+                userData.$reset();
             }
-            return { name: 'login' };
-        }
-        if (authentication.authenticated === true) {
-            globalStore.currentUsername = authentication.username;
-            globalStore.currentUserId = authentication.userId;
-            globalStore.currentUserIsAdmin = authentication.isAdmin;
+            returnRoute = { name: 'login' };
+        } else if (instanceOfUserInfo(authentication) === true) {
             if (to.name === 'login') {
-                return { name: 'dashboard', params: { username: authentication.username } };
+                returnRoute = { name: 'dashboard', params: { username: authentication.username } };
             }
+            return returnRoute;
         }
-        return true;
     });
-    return guard;
 });
 
 export default router;
