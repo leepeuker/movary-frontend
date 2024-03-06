@@ -1,7 +1,9 @@
 <script setup>
 import { addAlert, userStore, themeStore } from '@/utilities';
 import axiosInstance from '@/httpClient';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const user = userStore();
 async function submitCredentials() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -13,7 +15,8 @@ async function submitCredentials() {
         'redirect': urlParams.get('redirect') ?? ''
     }).then((response) => {
         user.setNewUser(response.data.user.name, response.data.user.id, response.data.user.isAdmin);
-        this.$router.push({ name: 'dashboard', params: { 'username': response.user.name } });
+        router.push({name: 'dashboard', params: { username: response.data.user.name }});
+        document.getElementById('app').style.minHeight = '100vh;';
     }).catch((error) => {
         if(error.response){
             if(error.response.data.error === 'MissingTotpCode') {

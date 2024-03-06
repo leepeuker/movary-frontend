@@ -29,7 +29,7 @@ const routes = [
             { path: 'actors', component: '', name: 'topActors' },
             { path: 'directors', component: '', name: 'topDirectors' },
             { path: 'persons/:id(\\d+)', component: '', name: 'persons' }
-        ]
+        ],
     },
     { path: '/:pathMatch(.*)', component: NotFound }
 ];
@@ -44,17 +44,17 @@ router.beforeEach(async (to) => {
     let returnRoute: boolean | object = true;
     await checkAuthenticationStatus().then((authentication: false | userInfo) => {
         if (authentication === false && to.name !== 'login') {
-            if (userData.getUser.username !== null) {
+            if (userData.getUser !== null) {
                 userData.$reset();
             }
             returnRoute = { name: 'login' };
-        } else if (instanceOfUserInfo(authentication) === true) {
+        } else if (instanceOfUserInfo(authentication) === true && authentication !== false) {
             if (to.name === 'login') {
                 returnRoute = { name: 'dashboard', params: { username: authentication.username } };
             }
-            return returnRoute;
         }
     });
+    return returnRoute;
 });
 
 export default router;

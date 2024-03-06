@@ -81,7 +81,9 @@ async function checkAuthenticationStatus()  {
         });
     } catch (error) {
         // eslint-disable-next-line no-console
-        console.error(error);
+        if(error.response.status === 401) {
+            return authenticationStatus;
+        }
     }
     return authenticationStatus;
 }

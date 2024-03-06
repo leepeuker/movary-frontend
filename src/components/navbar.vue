@@ -1,11 +1,20 @@
 <script setup>
 import { storeToRefs} from 'pinia';
-import { userStore } from '../utilities';
+import { userStore } from '@/utilities';
+import axiosInstance from '@/httpClient';
+import { useRouter } from 'vue-router';
 
-const store = userStore();
-const { username } = storeToRefs(store);
+const router = useRouter();
+const user = userStore();
+const username = user.getUser.username;
 const authenticated = username !== null;
 const inSettings = window.location.pathname.startsWith('/settings');
+async function logout() {
+    axiosInstance.delete('/api/authentication/token').then(() => {
+        user.$reset();
+        router.push({name: 'login'});
+    })
+}
 </script>
 <template>
     <nav class="navbar navbar-dark bg-dark">
@@ -28,8 +37,8 @@ const inSettings = window.location.pathname.startsWith('/settings');
                         <hr class="dropdown-divider" />
                     </li>
                     <li v-if="authenticated"><a class="dropdown-item" :class="{ active: inSettings }" href="/settings/account/general">Settings</a></li>
-                    <li v-if="authenticated"><a class="dropdown-item" href="/logout">Logout</a></li>
-                    <li v-else><a class="dropdown-item" href="/login">Login</a></li>
+                    <li v-if="authenticated"><a class="dropdown-item" style="cursor: pointer;" @click="logout()">Logout</a></li>
+                    <li v-else><a class="dropdown-item" href="/login" style="cursor: pointer;">Login</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
